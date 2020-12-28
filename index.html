@@ -1,0 +1,51 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="./style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <title>Contacts</title>
+  <!-- Include Handlebars from a CDN -->
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<!-- this is our js file source -->
+<script src="contacts.js"></script>
+</head>
+
+<body>
+  <h1>My contacts</h1>
+  <div id="contacts">
+    <!--type is handlebars and templating section using script tags-->
+    <script id="peopleInfo" type="text/x-handlebars-template">
+      <!-- #each iterates over contacts array in linked js file -->
+      {{#each contacts}}
+    <div class="contact card">
+      <div>
+        <i class="far fa-user-circle gravatar"></i>
+      </div>
+      <div class="info">
+        <h2>Name: {{this.name}}</h2>
+        <button class="detailsBtn" onclick="revealDetails({{this.id}})">Details</button>
+        <div class="details" id={{this.id}}>
+          <p>Phone number: {{this.phoneNumber}}</p>
+          <p>Email: {{this.email}}</p>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+    </script>
+  <!-- this code uses the templating -->
+  <script type="text/javascript">
+  // this gets all the data inside the peopleInfo script tag
+  var templateInfo = document.getElementById("peopleInfo").innerHTML;
+  
+  var templateX = Handlebars.compile(templateInfo);
+
+  var templateData = templateX({contacts});
+
+  document.getElementById("contacts").innerHTML += templateData;
+  </script>
+  
+</body>
+
+</html>
